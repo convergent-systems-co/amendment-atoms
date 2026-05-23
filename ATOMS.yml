@@ -1,0 +1,51 @@
+# ATOMS.yml — catalog manifest for amendment-atoms
+#
+# Conforms to atoms-spec/v1.1.0.
+# See https://github.com/convergent-systems-co/atoms-spec for the canonical schema.
+
+spec_version: atoms-spec/v1.1.0
+name: amendment-atoms
+version: 0.1.0
+canonical_domain: amendment-atoms.com
+federation: convergent-systems.co
+
+purpose: |
+  Amendments to specifications and constitutional documents — typed proposal,
+  ratification, revocation, and effective-date primitives. The change-control
+  vocabulary downstream catalogs (constitution-atoms, policy-atoms, schema-atoms)
+  compose against to evolve their published documents under a sanctioned,
+  signed, auditable lineage.
+
+atom_types:
+  - proposal
+  - ratification
+  - revocation
+  - effective-date
+
+composition_type: amendments
+composition_dir: amendments/
+
+signing:
+  required_algorithms: ["ml-dsa-65"]
+  accepted_algorithms: ["ml-dsa-65", "ml-dsa-44"]
+  quorum_rules:
+    default: "1 of role:catalog-maintainer"
+    "governance/*": "1 of role:catalog-maintainer + 1 of role:ratifier"
+
+lifecycle:
+  current: bootstrap
+
+licensing:
+  code: Apache-2.0
+  data: CC-BY-4.0
+
+steward: convergent-systems-co
+infrastructure_operator: convergent-systems-co
+
+runtime_consumers:
+  - aish
+  - olympus
+
+maintainers:
+  - name: Convergent Systems
+    contact: maintainers@convergent-systems.co
