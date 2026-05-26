@@ -1,0 +1,23 @@
+{
+  "schema": "https://amendment-atoms.com/schemas/atom-v1.json",
+  "type": "proposal",
+  "id": "amendment-atoms/proposal/code-md-delivery-cycle-v0-8",
+  "version": "1.0.0",
+  "name": "Code.md \u00a711.10 \u2014 Delivery cycle discipline",
+  "description": "Adds mandatory full delivery cycle: worktree+branch \u2192 commit \u2192 push \u2192 PR \u2192 CI green \u2192 merge. Skipping any step is a defect. Covers no-PR abandonment, CI bypass, out-of-band production changes, and bulk-operation cycle discipline.",
+  "target_document": "constitution-atoms/charter/ai-governance@0.3.0",
+  "change_type": "additive",
+  "rationale": "Sourced from 2026-05-23 atoms catalog session failure modes: ~19 multi-repo applies with only 3 of ~19 branches getting PRs, production state outran the git audit trail by hours, and bulk-merge used --admin to bypass CI at cleanup step. A change is not 'done' until all six cycle steps complete in order; skipping any is a defect.",
+  "proposed_text": "Every change to a Polliard-owned repo MUST complete the full cycle in order: worktree+branch \u2192 commit(s) \u2192 push \u2192 PR opened \u2192 CI green \u2192 merge. A change is not 'done' until all six steps complete. Skipping any step is a defect. No-PR abandonment, admin-bypass of CI, out-of-band production changes anticipating unmerged PRs, and bulk-merging without CI gates are all instances of the same defect.",
+  "effective_date": "2026-05-23",
+  "status": "accepted",
+  "proposed_by": "convergent-systems-co",
+  "tags": [
+    "governance",
+    "code",
+    "delivery",
+    "pr-required",
+    "ci",
+    "code-md"
+  ]
+}
