@@ -1,0 +1,16 @@
+{
+  "schema": "https://amendment-atoms.com/schemas/atom-v1.json",
+  "type": "proposal",
+  "id": "amendment-atoms/proposal/common-md-autonomy-v0.19",
+  "version": "1.0.0",
+  "name": "Common.md §2.4 — Approval keyword clarification",
+  "description": "Clarifies that the approval keyword for destructive actions is 'approve' (not 'yes') to prevent ambiguous approvals that could trigger irreversible operations.",
+  "target_document": "constitution-atoms/charter/ai-governance@0.3.0",
+  "change_type": "corrective",
+  "rationale": "The prior text accepted 'yes' as an approval keyword for destructive actions, which is too ambiguous — 'yes' is a natural response to many non-approval questions and creates an inadvertent gate-bypass risk. Requiring the literal word 'approve' makes the intent unambiguous and removes false-positive trigger surface.",
+  "proposed_text": "4. Wait for an unambiguous 'approve.' Not 'ok,' not 'sure,' not 'yes,' not 'y,' not silence. Only the literal word 'approve' on its own qualifies.",
+  "effective_date": "2026-05-26",
+  "status": "accepted",
+  "proposed_by": "convergent-systems-co",
+  "tags": ["governance", "ai", "approval", "destructive-action", "common-md"]
+}

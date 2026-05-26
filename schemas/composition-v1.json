@@ -1,44 +1,53 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://amendment-atoms.com/schemas/composition-v1.json",
-  "title": "amendment-atoms v1 composition",
-  "description": "An agent composition assembling persona + tools + capabilities + role boundaries + isolation into a complete agent definition.",
+  "title": "amendment-atoms v1 amendment-set composition",
+  "description": "An amendment-set groups one or more proposal atoms into a co-authored, co-effective change package. All proposals in a set share a target catalog and effective date.",
   "type": "object",
-  "required": ["schema", "type", "id", "version", "name", "references"],
+  "required": ["schema", "type", "id", "version", "name", "proposals"],
   "additionalProperties": false,
   "properties": {
     "schema": {
       "type": "string",
       "const": "https://amendment-atoms.com/schemas/composition-v1.json"
     },
-    "type": { "type": "string", "const": "agent" },
-    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,62}[a-z0-9]$" },
+    "type": { "type": "string", "const": "amendment-set" },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][-a-z0-9/]*[a-z0-9]$",
+      "description": "Slash-namespaced composition ID, e.g. amendment-atoms/amendment-set/governance-v0.8-batch"
+    },
     "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[A-Za-z0-9.-]+)?$" },
-    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "name": { "type": "string", "minLength": 1, "maxLength": 120 },
     "description": { "type": "string", "maxLength": 500 },
-    "tags": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 40 }, "uniqueItems": true },
-    "references": {
-      "type": "object",
-      "required": ["persona", "isolation"],
-      "additionalProperties": false,
-      "properties": {
-        "persona":         { "$ref": "#/$defs/ref" },
-        "tools":           { "type": "array", "items": { "$ref": "#/$defs/ref" }, "uniqueItems": true },
-        "capabilities":    { "type": "array", "items": { "$ref": "#/$defs/ref" }, "uniqueItems": true },
-        "role_boundaries": { "type": "array", "items": { "$ref": "#/$defs/ref" }, "uniqueItems": true },
-        "isolation":       { "$ref": "#/$defs/ref" }
-      }
-    }
-  },
-  "$defs": {
-    "ref": {
-      "type": "object",
-      "required": ["ref", "version"],
-      "additionalProperties": false,
-      "properties": {
-        "ref":     { "type": "string", "pattern": "^amendment-atoms://atoms/[a-z-]+/[a-z0-9-]+$" },
-        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[A-Za-z0-9.-]+)?$" }
-      }
+    "proposals": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Proposal atom ID (with optional @semver) included in this set."
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "target_catalog": {
+      "type": "string",
+      "description": "Catalog slug that owns the documents being amended, e.g. constitution-atoms"
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Shared effective date for all proposals in this set."
+    },
+    "ratified_by": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Identities that ratified this amendment-set.",
+      "uniqueItems": true
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 40 },
+      "uniqueItems": true
     }
   }
 }
