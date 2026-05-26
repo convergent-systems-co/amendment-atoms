@@ -1,8 +1,57 @@
 {
   "catalog": "amendment-atoms",
   "version": "0.1.0",
-  "built_at": "2026-05-23T00:00:00+00:00",
-  "atoms": [],
+  "built_at": "2026-05-26T00:00:00+00:00",
+  "atoms": [
+    {
+      "schema": "https://amendment-atoms.com/schemas/atom-v1.json",
+      "type": "proposal",
+      "id": "amendment-atoms/proposal/common-md-autonomy-v0.19",
+      "version": "1.0.0",
+      "name": "Common.md §2.4 — Approval keyword clarification",
+      "description": "Clarifies that the approval keyword for destructive actions is 'approve' (not 'yes') to prevent ambiguous approvals that could trigger irreversible operations.",
+      "target_document": "constitution-atoms/charter/ai-governance@0.3.0",
+      "change_type": "corrective",
+      "rationale": "The prior text accepted 'yes' as an approval keyword for destructive actions, which is too ambiguous — 'yes' is a natural response to many non-approval questions and creates an inadvertent gate-bypass risk. Requiring the literal word 'approve' makes the intent unambiguous and removes false-positive trigger surface.",
+      "proposed_text": "4. Wait for an unambiguous 'approve.' Not 'ok,' not 'sure,' not 'yes,' not 'y,' not silence. Only the literal word 'approve' on its own qualifies.",
+      "effective_date": "2026-05-26",
+      "status": "accepted",
+      "proposed_by": "convergent-systems-co",
+      "tags": ["governance", "ai", "approval", "destructive-action", "common-md"]
+    },
+    {
+      "schema": "https://amendment-atoms.com/schemas/atom-v1.json",
+      "type": "proposal",
+      "id": "amendment-atoms/proposal/code-md-delivery-cycle-v0.8",
+      "version": "1.0.0",
+      "name": "Code.md §11.10 — Delivery cycle discipline",
+      "description": "Adds mandatory full delivery cycle: worktree+branch → commit → push → PR → CI green → merge. Skipping any step is a defect. Covers no-PR abandonment, CI bypass, out-of-band production changes, and bulk-operation cycle discipline.",
+      "target_document": "constitution-atoms/charter/ai-governance@0.3.0",
+      "change_type": "additive",
+      "rationale": "Sourced from 2026-05-23 atoms catalog session failure modes: ~19 multi-repo applies with only 3 of ~19 branches getting PRs, production state outran the git audit trail by hours, and bulk-merge used --admin to bypass CI at cleanup step. A change is not 'done' until all six cycle steps complete in order; skipping any is a defect.",
+      "proposed_text": "Every change to a Polliard-owned repo MUST complete the full cycle in order: worktree+branch → commit(s) → push → PR opened → CI green → merge. A change is not 'done' until all six steps complete. Skipping any step is a defect. No-PR abandonment, admin-bypass of CI, out-of-band production changes anticipating unmerged PRs, and bulk-merging without CI gates are all instances of the same defect.",
+      "effective_date": "2026-05-23",
+      "status": "accepted",
+      "proposed_by": "convergent-systems-co",
+      "tags": ["governance", "code", "delivery", "pr-required", "ci", "code-md"]
+    },
+    {
+      "schema": "https://amendment-atoms.com/schemas/atom-v1.json",
+      "type": "proposal",
+      "id": "amendment-atoms/proposal/atoms-spec-v1.1.0-grammar-atoms",
+      "version": "1.0.0",
+      "name": "atoms-spec v1.1.0 — Grammar atom class",
+      "description": "Introduces the grammar atom class to atoms-spec, enabling schema-atoms to publish machine-readable structural contracts for each catalog's atom types. Grammar atoms are referenced by catalog validators for cross-catalog field validation and tooling.",
+      "target_document": "schema-atoms/design-spec/atom-spec@1.1.0",
+      "change_type": "additive",
+      "rationale": "Grammar atoms provide machine-readable field definitions for each catalog class, enabling cross-catalog validation and tooling (atoms-tools, xdao discovery). Without a grammar atom class, catalog validators must hardcode field knowledge per catalog rather than reading it from a discoverable, versioned artifact.",
+      "proposed_text": "Part XIV: Grammar atoms (kind=grammar) define the structural contract for a named atom class. They are housed in schema-atoms/atoms/<class>.json and referenced by catalog validators. Each grammar atom declares: class name, required fields, optional fields, field types, and allowed enum values. Catalog maintainers register grammar atoms by PRing to schema-atoms; validators fetch them by class name at validation time.",
+      "effective_date": "2026-05-26",
+      "status": "accepted",
+      "proposed_by": "convergent-systems-co",
+      "tags": ["atoms-spec", "grammar", "schema-atoms", "additive", "cross-catalog"]
+    }
+  ],
   "compositions": [],
   "rules": []
 }

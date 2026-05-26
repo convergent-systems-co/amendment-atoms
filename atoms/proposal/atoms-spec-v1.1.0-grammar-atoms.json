@@ -1,0 +1,16 @@
+{
+  "schema": "https://amendment-atoms.com/schemas/atom-v1.json",
+  "type": "proposal",
+  "id": "amendment-atoms/proposal/atoms-spec-v1.1.0-grammar-atoms",
+  "version": "1.0.0",
+  "name": "atoms-spec v1.1.0 — Grammar atom class",
+  "description": "Introduces the grammar atom class to atoms-spec, enabling schema-atoms to publish machine-readable structural contracts for each catalog's atom types. Grammar atoms are referenced by catalog validators for cross-catalog field validation and tooling.",
+  "target_document": "schema-atoms/design-spec/atom-spec@1.1.0",
+  "change_type": "additive",
+  "rationale": "Grammar atoms provide machine-readable field definitions for each catalog class, enabling cross-catalog validation and tooling (atoms-tools, xdao discovery). Without a grammar atom class, catalog validators must hardcode field knowledge per catalog rather than reading it from a discoverable, versioned artifact.",
+  "proposed_text": "Part XIV: Grammar atoms (kind=grammar) define the structural contract for a named atom class. They are housed in schema-atoms/atoms/<class>.json and referenced by catalog validators. Each grammar atom declares: class name, required fields, optional fields, field types, and allowed enum values. Catalog maintainers register grammar atoms by PRing to schema-atoms; validators fetch them by class name at validation time.",
+  "effective_date": "2026-05-26",
+  "status": "accepted",
+  "proposed_by": "convergent-systems-co",
+  "tags": ["atoms-spec", "grammar", "schema-atoms", "additive", "cross-catalog"]
+}

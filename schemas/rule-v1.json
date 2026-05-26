@@ -2,32 +2,43 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://amendment-atoms.com/schemas/rule-v1.json",
   "title": "amendment-atoms v1 rule",
-  "description": "A rule constrains how atoms and compositions can be combined. Examples: capability-grant, isolation-rule, communication-pattern, supervision-hierarchy.",
+  "description": "A rule constrains how proposals are ordered, how many approvals are required, how conflicts are resolved, and when proposals expire. Rules compose with amendment-sets to form a complete change-control protocol.",
   "type": "object",
-  "required": ["schema", "type", "id", "version", "name", "predicate", "effect"],
+  "required": ["schema", "type", "id", "version", "name", "rule_type", "expression"],
   "additionalProperties": false,
   "properties": {
     "schema": { "type": "string", "const": "https://amendment-atoms.com/schemas/rule-v1.json" },
     "type": {
       "type": "string",
-      "enum": ["capability-grant", "isolation-rule", "communication-pattern", "supervision-hierarchy"]
+      "const": "rule"
     },
-    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,62}[a-z0-9]$" },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][-a-z0-9/]*[a-z0-9]$",
+      "description": "Slash-namespaced rule ID, e.g. amendment-atoms/rule/serial-ordering"
+    },
     "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[A-Za-z0-9.-]+)?$" },
-    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
-    "description": { "type": "string", "maxLength": 500 },
-    "tags": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 40 }, "uniqueItems": true },
-    "predicate": {
-      "type": "object",
-      "required": ["subject_ref", "condition", "value"],
-      "additionalProperties": false,
-      "properties": {
-        "subject_ref": { "type": "string", "pattern": "^amendment-atoms://(atoms|agents|rules)/[a-z-]+(?:/[a-z0-9-]+)?$" },
-        "condition": { "type": "string", "enum": ["eq", "neq", "in", "not_in", "gte", "lte", "matches"] },
-        "value": {}
-      }
+    "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "rule_type": {
+      "type": "string",
+      "enum": ["ordering", "quorum", "conflict-resolution", "expiry"],
+      "description": "ordering — proposals applied in serial; quorum — N-of-role required to ratify; conflict-resolution — how to resolve collisions on the same target section; expiry — proposals auto-reject after N days without ratification"
     },
-    "effect": { "type": "string", "enum": ["require", "forbid", "warn"] },
-    "rationale": { "type": "string", "maxLength": 500 }
+    "description": { "type": "string", "maxLength": 500 },
+    "expression": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable or DSL expression stating the rule constraint. E.g. 'proposals targeting the same section must be applied in version-ascending order'."
+    },
+    "scope": {
+      "type": "string",
+      "description": "Optional glob or atom-ID pattern scoping this rule to a subset of proposals.",
+      "examples": ["amendment-atoms/proposal/governance-*", "*"]
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 40 },
+      "uniqueItems": true
+    }
   }
 }
